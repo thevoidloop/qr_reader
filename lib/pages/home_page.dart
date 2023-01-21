@@ -4,6 +4,7 @@ import 'package:qr_reader/models/scan_model.dart';
 
 import 'package:qr_reader/pages/pages.dart';
 import 'package:qr_reader/providers/db_provider.dart';
+import 'package:qr_reader/providers/scan_list_provider.dart';
 import 'package:qr_reader/providers/ui_provider.dart';
 import 'package:qr_reader/widget/widget.dart';
 
@@ -38,12 +39,18 @@ class _HomePageBody extends StatelessWidget {
 
     final uiProvider = Provider.of<UiProvider>(context);
 
+    final scanListProvider =
+        Provider.of<ScanListProvider>(context, listen: false);
+
     switch (uiProvider.selectedMenuOpt) {
       case 0:
+        scanListProvider.cargarScansPorTipo('geo');
         return const MapasPage();
       case 1:
+        scanListProvider.cargarScansPorTipo('http');
         return const AddressesPage();
       default:
+        scanListProvider.cargarScansPorTipo('http');
         return const MapasPage();
     }
   }
